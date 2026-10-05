@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Swaraj Sunil Badhade! 🎉</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Canvas Confetti Library -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800;900&family=Pacifico&family=Outfit:wght@500;700;900&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        cursive: ['Pacifico', 'cursive'],
+                        display: ['Outfit', 'sans-serif'],
+                    },
+                    colors: {
+                        gold: {
+                            400: '#facc15',
+                            500: '#eab308',
+                            600: '#ca8a04',
+                        },
+                        party: {
+                            purple: '#7c3aed',
+                            pink: '#ec4899',
+                            blue: '#3b82f6',
+                            amber: '#f59e0b',
+                        }
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-glow': 'pulseGlow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'spin-slow': 'spin 12s linear infinite',
+                        'bounce-soft': 'bounceSoft 2s ease-in-out infinite',
+                        'flicker': 'flicker 1.5s ease-in-out infinite alternate',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px) rotate(0deg)' },
+                            '50%': { transform: 'translateY(-20px) rotate(3deg)' },
+                        },
+                        pulseGlow: {
+                            '0%, 100%': { opacity: 1, filter: 'drop-shadow(0 0 15px rgba(236,72,153,0.8))' },
+                            '50%': { opacity: 0.7, filter: 'drop-shadow(0 0 35px rgba(124,58,237,0.9))' },
+                        },
+                        bounceSoft: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        },
+                        flicker: {
+                            '0%': { transform: 'scale(1) rotate(-1deg)', opacity: '0.9' },
+                            '20%': { transform: 'scale(1.1) rotate(1deg)', opacity: '1' },
+                            '40%': { transform: 'scale(0.95) rotate(-2deg)', opacity: '0.85' },
+                            '60%': { transform: 'scale(1.05) rotate(1deg)', opacity: '1' },
+                            '80%': { transform: 'scale(0.98) rotate(-1deg)', opacity: '0.9' },
+                            '100%': { transform: 'scale(1.02) rotate(0deg)', opacity: '0.95' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #475569;
+        }
+
+        /* Glassmorphism Styling */
+        .glass-card {
+            background: rgba(30, 41, 59, 0.65);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+        }
+
+        .glass-card-glow {
+            background: rgba(30, 41, 59, 0.75);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(236, 72, 153, 0.3);
+            box-shadow: 0 0 30px rgba(236, 72, 153, 0.15);
+        }
+
+        /* Candle Flame Effect */
+        .flame {
+            width: 16px;
+            height: 26px;
+            background: linear-gradient(to top, #ff4500, #ff8c00, #ffd700, #ffffff);
+            border-radius: 50% 50% 35% 35%;
+            box-shadow: 0 0 15px #ff8c00, 0 0 30px #ff4500;
+            transform-origin: center bottom;
+            animation: flicker 1.2s ease-in-out infinite alternate;
+        }
+
+        .flame.out {
+            display: none;
+        }
+
+        /* Smoke effect when candle is blown */
+        .smoke {
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 8px;
+            height: 8px;
+            background: rgba(200, 200, 200, 0.6);
+            border-radius: 50%;
+            pointer-events: none;
+            opacity: 0;
+        }
+
+        .smoke.active {
+            animation: riseSmoke 1.5s forwards ease-out;
+        }
+
+        @keyframes riseSmoke {
+            0% { opacity: 0.8; transform: translate(-50%, 0) scale(1); }
+            50% { opacity: 0.5; transform: translate(-70%, -25px) scale(2.5); }
+            100% { opacity: 0; transform: translate(-30%, -50px) scale(4); }
+        }
+
+        /* Card Flip Effect */
+        .perspective-1000 {
+            perspective: 1000px;
+        }
+        .transform-style-3d {
+            transform-style: preserve-3d;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .backface-hidden {
+            backface-visibility: hidden;
+        }
+        .rotate-y-180 {
+            transform: rotateY(180deg);
+        }
+
+        /* Custom Text Gradient */
+        .text-gradient-gold {
+            background: linear-gradient(135deg, #fef08a 0%, #facc15 50%, #ca8a04 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .text-gradient-party {
+            background: linear-gradient(135deg, #ec4899 0%, #a855f7 50%, #3b82f6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Background Particle Canvas */
+        #particleCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 font-sans min-h-screen overflow-x-hidden relative selection:bg-pink-500 selection:text-white">
+
+    <!-- Background Dynamic Particle Canvas -->
+    <canvas id="particleCanvas"></canvas>
+
+    <!-- FLOATING DECORATIONS (Balloons & Lights) -->
+    <div class="fixed inset-0 pointer-events-none overflow-hidden z-0">
+        <!-- Floating Balloon Left -->
+        <div class="absolute left-4 top-1/4 animate-float opacity-80 hidden md:block" style="animation-delay: 0s;">
+            <div class="w-16 h-20 bg-gradient-to-tr from-pink-600 to-rose-400 rounded-full shadow-lg relative">
+                <div class="absolute bottom-[-6px] left-1/2 -translate-x-1/2 border-l-[6px] border-r-[6px] border-b-[8px] border-l-transparent border-r-transparent border-b-pink-600"></div>
+                <div class="absolute bottom-[-30px] left-1/2 w-0.5 h-8 bg-slate-400 opacity-60"></div>
+            </div>
+        </div>
+        <!-- Floating Balloon Right -->
+        <div class="absolute right-8 top-1/3 animate-float opacity-80 hidden md:block" style="animation-delay: 2s;">
+            <div class="w-20 h-24 bg-gradient-to-tr from-purple-600 to-indigo-400 rounded-full shadow-lg relative">
+                <div class="absolute bottom-[-6px] left-1/2 -translate-x-1/2 border-l-[6px] border-r-[6px] border-b-[8px] border-l-transparent border-r-transparent border-b-purple-600"></div>
+                <div class="absolute bottom-[-35px] left-1/2 w-0.5 h-10 bg-slate-400 opacity-60"></div>
+            </div>
+        </div>
+        <!-- Floating Balloon Gold -->
+        <div class="absolute left-1/12 top-2/3 animate-float opacity-75 hidden lg:block" style="animation-delay: 3.5s;">
+            <div class="w-14 h-18 bg-gradient-to-tr from-amber-500 to-yellow-300 rounded-full shadow-lg relative">
+                <div class="absolute bottom-[-6px] left-1/2 -translate-x-1/2 border-l-[6px] border-r-[6px] border-b-[8px] border-l-transparent border-r-transparent border-b-amber-500"></div>
+                <div class="absolute bottom-[-25px] left-1/2 w-0.5 h-7 bg-slate-400 opacity-60"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN APP CONTAINER -->
+    <div class="relative z-10 max-w-6xl mx-auto px-4 py-6 flex flex-col gap-12">
+
+        <!-- HEADER & CONTROL BAR -->
+        <header class="flex flex-wrap items-center justify-between gap-4 glass-card p-4 rounded-2xl shadow-xl">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-pink-500 to-purple-600 flex items-center justify-center text-xl font-bold shadow-lg shadow-pink-500/30">
+                    👑
+                </div>
+                <div>
+                    <h1 class="font-display font-black text-lg tracking-wide text-gradient-gold">Swaraj's B'Day</h1>
+                    <p class="text-xs text-slate-400">October 5 • Special Edition</p>
+                </div>
+            </div>
+
+            <!-- Quick Action Toolbar -->
+            <div class="flex items-center gap-2 sm:gap-3 flex-wrap">
+                <!-- Music Player Toggle Button -->
+                <button id="musicToggleBtn" onclick="toggleAudio()" class="px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-xs font-semibold flex items-center gap-2 transition-all hover:scale-105 active:scale-95 text-pink-400">
+                    <i data-lucide="music" class="w-4 h-4"></i>
+                    <span id="musicBtnText">Play Tune 🎵</span>
+                </button>
+
+                <!-- Blast Confetti Cannon -->
+                <button onclick="triggerConfetti()" class="px-3 py-2 rounded-xl bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white text-xs font-bold flex items-center gap-2 transition-all shadow-lg shadow-purple-500/25 hover:scale-105 active:scale-95">
+                    <i data-lucide="sparkles" class="w-4 h-4"></i>
+                    <span>Blast Confetti 🎉</span>
+                </button>
+
+                <!-- Firework Burst -->
+                <button onclick="triggerFireworks()" class="px-3 py-2 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white text-xs font-bold flex items-center gap-2 transition-all shadow-lg shadow-amber-500/25 hover:scale-105 active:scale-95">
+                    <i data-lucide="flame" class="w-4 h-4"></i>
+                    <span>Fireworks 🎆</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- HERO SECTION -->
+        <section class="text-center space-y-6 pt-4 relative">
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-pink-500/10 border border-pink-500/30 text-pink-300 text-sm font-semibold mb-2 animate-bounce-soft">
+                <i data-lucide="party-popper" class="w-4 h-4 text-pink-400"></i>
+                <span>Today's the Big Celebration!</span>
+            </div>
+
+            <h1 class="text-4xl sm:text-6xl md:text-7xl font-display font-black tracking-tight leading-tight">
+                Happy Birthday,<br>
+                <span class="text-gradient-party drop-shadow-lg" id="swarajTitle">Swaraj Sunil Badhade!</span>
+            </h1>
+
+            <p class="text-lg sm:text-xl text-slate-300 max-w-2xl mx-auto font-light leading-relaxed">
+                To an incredible cousin, brother, and absolute legend! <br>
+                <span id="typingText" class="text-amber-300 font-semibold italic border-r-2 border-amber-400 pr-1"></span>
+            </p>
+        </section>
+
+        <!-- INTERACTIVE CAKE & CANDLE SECTION -->
+        <section class="glass-card-glow rounded-3xl p-6 sm:p-10 text-center relative overflow-hidden">
+            <div class="max-w-xl mx-auto flex flex-col items-center gap-6">
+                
+                <div class="space-y-2">
+                    <span class="text-xs uppercase tracking-widest text-pink-400 font-bold">Interactive Ritual</span>
+                    <h2 class="text-2xl sm:text-3xl font-display font-bold text-gradient-gold">Make a Wish & Blow the Candles!</h2>
+                    <p class="text-xs sm:text-sm text-slate-400">Click on each candle or use the master blow button to extinguish the flames!</p>
+                </div>
+
+                <!-- 3D CSS BIRTHDAY CAKE -->
+                <div class="my-6 relative w-64 h-56 flex flex-col items-center justify-end">
+                    <!-- Candles Container -->
+                    <div class="flex justify-center items-end gap-6 mb-1 z-20">
+                        <!-- Candle 1 -->
+                        <div class="candle-wrapper cursor-pointer group flex flex-col items-center" onclick="blowOutSingleCandle(0)">
+                            <div class="relative">
+                                <div id="flame-0" class="flame"></div>
+                                <div id="smoke-0" class="smoke"></div>
+                            </div>
+                            <div class="w-3.5 h-12 bg-gradient-to-b from-pink-300 via-pink-400 to-pink-500 rounded-t-sm shadow-sm relative overflow-hidden">
+                                <div class="absolute inset-0 bg-[linear-gradient(45deg,transparent_25%,rgba(255,255,255,0.4)_50%,transparent_75%)] bg-[length:10px_10px]"></div>
+                            </div>
+                        </div>
+
+                        <!-- Candle 2 (Middle - Gold) -->
+                        <div class="candle-wrapper cursor-pointer group flex flex-col items-center -translate-y-2" onclick="blowOutSingleCandle(1)">
+                            <div class="relative">
+                                <div id="flame-1" class="flame scale-125"></div>
+                                <div id="smoke-1" class="smoke"></div>
+                            </div>
+                            <div class="w-4 h-14 bg-gradient-to-b from-amber-200 via-amber-400 to-amber-500 rounded-t-sm shadow-sm relative overflow-hidden">
+                                <div class="absolute inset-0 bg-[linear-gradient(-45deg,transparent_25%,rgba(255,255,255,0.4)_50%,transparent_75%)] bg-[length:10px_10px]"></div>
+                            </div>
+                        </div>
+
+                        <!-- Candle 3 -->
+                        <div class="candle-wrapper cursor-pointer group flex flex-col items-center" onclick="blowOutSingleCandle(2)">
+                            <div class="relative">
+                                <div id="flame-2" class="flame"></div>
+                                <div id="smoke-2" class="smoke"></div>
+                            </div>
+                            <div class="w-3.5 h-12 bg-gradient-to-b from-cyan-300 via-cyan-400 to-cyan-500 rounded-t-sm shadow-sm relative overflow-hidden">
+                                <div class="absolute inset-0 bg-[linear-gradient(45deg,transparent_25%,rgba(255,255,255,0.4)_50%,transparent_75%)] bg-[length:10px_10px]"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- CAKE TIER 1 (Top Layer) -->
+                    <div class="w-48 h-16 bg-gradient-to-r from-pink-500 via-rose-400 to-pink-500 rounded-t-2xl shadow-md border-b-4 border-pink-600 relative overflow-hidden flex items-center justify-center">
+                        <!-- Cream Drips -->
+                        <div class="absolute top-0 w-full h-4 bg-white/90 rounded-b-full shadow-inner"></div>
+                        <div class="text-xs font-bold text-white tracking-widest uppercase opacity-90 z-10 font-display">SWARAJ</div>
+                    </div>
+
+                    <!-- CAKE TIER 2 (Bottom Layer) -->
+                    <div class="w-60 h-20 bg-gradient-to-r from-purple-700 via-purple-600 to-indigo-700 rounded-t-2xl shadow-xl relative overflow-hidden border-b-4 border-purple-900 flex items-center justify-center">
+                        <div class="absolute top-0 w-full h-5 bg-pink-200/90 rounded-b-full shadow-inner"></div>
+                        <!-- Cake Decorations -->
+                        <div class="flex gap-4 opacity-80">
+                            <span class="text-amber-300">✨</span>
+                            <span class="text-pink-300">💖</span>
+                            <span class="text-amber-300">✨</span>
+                            <span class="text-cyan-300">⭐</span>
+                            <span class="text-amber-300">✨</span>
+                        </div>
+                    </div>
+
+                    <!-- CAKE PLATE -->
+                    <div class="w-64 h-4 bg-gradient-to-r from-slate-300 via-white to-slate-300 rounded-full shadow-2xl border-t border-slate-100"></div>
+                </div>
+
+                <!-- Candle Blow Buttons & Status -->
+                <div class="flex flex-wrap items-center justify-center gap-4">
+                    <button id="blowCandlesBtn" onclick="blowOutAllCandles()" class="px-6 py-3 rounded-2xl bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 hover:opacity-90 text-white font-bold text-sm shadow-xl shadow-pink-500/20 flex items-center gap-2 transform transition hover:scale-105 active:scale-95">
+                        <i data-lucide="wind" class="w-5 h-5"></i>
+                        <span>Blow Out Candles 💨</span>
+                    </button>
+
+                    <button id="reLightBtn" onclick="relightCandles()" class="px-5 py-3 rounded-2xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-sm border border-slate-700 flex items-center gap-2 transform transition hover:scale-105 active:scale-95">
+                        <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
+                        <span>Relight Flames 🕯️</span>
+                    </button>
+                </div>
+
+                <!-- Wish Revealed Message Box -->
+                <div id="wishStatusBox" class="hidden w-full p-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-sm font-medium animate-pulse-glow">
+                    🎉 Woohoo! Candles blown! May all your wildest dreams and goals come true this year, Swaraj! 🚀✨
+                </div>
+
+            </div>
+        </section>
+
+        <!-- SURPRISE VIRTUAL GIFT BOXES -->
+        <section class="space-y-6">
+            <div class="text-center space-y-2">
+                <span class="text-xs uppercase tracking-widest text-purple-400 font-bold">Unwrap Your Surprises</span>
+                <h2 class="text-3xl font-display font-bold text-gradient-party">Swaraj's Birthday Gift Boxes 🎁</h2>
+                <p class="text-sm text-slate-400">Tap a gift box to open your birthday blessings and special vouchers!</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Gift Box 1 -->
+                <div class="gift-card perspective-1000 group cursor-pointer" onclick="flipGiftCard(this)">
+                    <div class="gift-card-inner transform-style-3d relative w-full h-56 rounded-2xl transition-all duration-700">
+                        <!-- Front -->
+                        <div class="absolute inset-0 glass-card rounded-2xl p-6 flex flex-col items-center justify-center gap-4 border-2 border-pink-500/30 group-hover:border-pink-500/60 transition-all backface-hidden shadow-xl">
+                            <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-pink-500 to-rose-400 flex items-center justify-center text-3xl shadow-lg shadow-pink-500/30 animate-bounce-soft">
+                                🎁
+                            </div>
+                            <div class="text-center">
+                                <h3 class="font-bold text-lg text-pink-300">Surprise Box #1</h3>
+                                <p class="text-xs text-slate-400 mt-1">Tap to unwrap</p>
+                            </div>
+                        </div>
+                        <!-- Back -->
+                        <div class="absolute inset-0 glass-card rounded-2xl p-6 flex flex-col items-center justify-center text-center gap-3 border-2 border-pink-500 bg-gradient-to-br from-pink-900/40 to-slate-900 rotate-y-180 backface-hidden shadow-2xl">
+                            <div class="text-3xl">🚀</div>
+                            <h4 class="font-bold text-amber-300 text-base">Infinite Success Pass</h4>
+                            <p class="text-xs text-slate-300 leading-relaxed">
+                                Wishing you a year packed with breakthrough achievements, unstoppable confidence, and boundless joy in everything you do!
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Gift Box 2 -->
+                <div class="gift-card perspective-1000 group cursor-pointer" onclick="flipGiftCard(this)">
+                    <div class="gift-card-inner transform-style-3d relative w-full h-56 rounded-2xl transition-all duration-700">
+                        <!-- Front -->
+                        <div class="absolute inset-0 glass-card rounded-2xl p-6 flex flex-col items-center justify-center gap-4 border-2 border-amber-500/30 group-hover:border-amber-500/60 transition-all backface-hidden shadow-xl">
+                            <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-amber-500 to-yellow-400 flex items-center justify-center text-3xl shadow-lg shadow-amber-500/30 animate-bounce-soft" style="animation-delay: 0.3s;">
+                                ⭐
+                            </div>
+                            <div class="text-center">
+                                <h3 class="font-bold text-lg text-amber-300">Surprise Box #2</h3>
+                                <p class="text-xs text-slate-400 mt-1">Tap to unwrap</p>
+                            </div>
+                        </div>
+                        <!-- Back -->
+                        <div class="absolute inset-0 glass-card rounded-2xl p-6 flex flex-col items-center justify-center text-center gap-3 border-2 border-amber-500 bg-gradient-to-br from-amber-900/40 to-slate-900 rotate-y-180 backface-hidden shadow-2xl">
+                            <div class="text-3xl">👑</div>
+                            <h4 class="font-bold text-amber-300 text-base">Cousin Brother MVP Title</h4>
+                            <p class="text-xs text-slate-300 leading-relaxed">
+                                Awarded to Swaraj for being the coolest, smartest, and most awesome brother ever. Keep shining brighter than ever!
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Gift Box 3 -->
+                <div class="gift-card perspective-1000 group cursor-pointer" onclick="flipGiftCard(this)">
+                    <div class="gift-card-inner transform-style-3d relative w-full h-56 rounded-2xl transition-all duration-700">
+                        <!-- Front -->
+                        <div class="absolute inset-0 glass-card rounded-2xl p-6 flex flex-col items-center justify-center gap-4 border-2 border-cyan-500/30 group-hover:border-cyan-500/60 transition-all backface-hidden shadow-xl">
+                            <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-cyan-500 to-blue-500 flex items-center justify-center text-3xl shadow-lg shadow-cyan-500/30 animate-bounce-soft" style="animation-delay: 0.6s;">
+                                🍕
+                            </div>
+                            <div class="text-center">
+                                <h3 class="font-bold text-lg text-cyan-300">Surprise Box #3</h3>
+                                <p class="text-xs text-slate-400 mt-1">Tap to unwrap</p>
+                            </div>
+                        </div>
+                        <!-- Back -->
+                        <div class="absolute inset-0 glass-card rounded-2xl p-6 flex flex-col items-center justify-center text-center gap-3 border-2 border-cyan-500 bg-gradient-to-br from-cyan-900/40 to-slate-900 rotate-y-180 backface-hidden shadow-2xl">
+                            <div class="text-3xl">🥳</div>
+                            <h4 class="font-bold text-amber-300 text-base">Unlimited Treat Pass</h4>
+                            <p class="text-xs text-slate-300 leading-relaxed">
+                                Valid for 1 huge birthday party feast, late-night hangouts, and endless memories with the entire gang!
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- KEEPSAKE PHOTO GALLERY & MEMORY FRAMES -->
+        <section class="space-y-6">
+            <div class="flex flex-wrap items-center justify-between gap-4">
+                <div>
+                    <span class="text-xs uppercase tracking-widest text-amber-400 font-bold">Memories & Moments</span>
+                    <h2 class="text-3xl font-display font-bold text-gradient-gold">Keepsake Gallery Frame 📸</h2>
+                </div>
+
+                <!-- Custom Photo Upload Button -->
+                <label class="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs font-semibold text-slate-200 cursor-pointer border border-slate-700 flex items-center gap-2 transition hover:scale-105">
+                    <i data-lucide="upload" class="w-4 h-4 text-pink-400"></i>
+                    <span>Upload Swaraj's Picture</span>
+                    <input type="file" id="photoUpload" accept="image/*" class="hidden" onchange="handlePhotoUpload(event)">
+                </label>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Photo Frame 1 -->
+                <div class="glass-card rounded-2xl p-4 flex flex-col gap-3 group hover:border-pink-500/50 transition-all duration-300 hover:-translate-y-1">
+                    <div class="relative w-full h-56 rounded-xl overflow-hidden bg-slate-900 border border-slate-800 flex items-center justify-center">
+                        <img id="frameImg1" src="https://images.unsplash.com/photo-1530103862676-de8c9debad1d?auto=format&fit=crop&w=600&q=80" alt="Birthday Vibes" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <div class="absolute top-3 right-3 px-2.5 py-1 rounded-full bg-slate-900/80 backdrop-blur-md text-[10px] font-bold text-pink-300 border border-pink-500/30">
+                            Party Time ✨
+                        </div>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-sm text-slate-200">The Legend's Special Day</h4>
+                        <p class="text-xs text-slate-400 mt-0.5">May your birthday be filled with endless smiles and epic celebration!</p>
+                    </div>
+                </div>
+
+                <!-- Photo Frame 2 -->
+                <div class="glass-card rounded-2xl p-4 flex flex-col gap-3 group hover:border-amber-500/50 transition-all duration-300 hover:-translate-y-1">
+                    <div class="relative w-full h-56 rounded-xl overflow-hidden bg-slate-900 border border-slate-800 flex items-center justify-center">
+                        <img id="frameImg2" src="https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=600&q=80" alt="Brotherhood" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <div class="absolute top-3 right-3 px-2.5 py-1 rounded-full bg-slate-900/80 backdrop-blur-md text-[10px] font-bold text-amber-300 border border-amber-500/30">
+                            Cousin Goals 👑
+                        </div>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-sm text-slate-200">Always Brother Number One</h4>
+                        <p class="text-xs text-slate-400 mt-0.5">Cheers to another year of great adventures, laughs, and awesome memories!</p>
+                    </div>
+                </div>
+
+                <!-- Photo Frame 3 -->
+                <div class="glass-card rounded-2xl p-4 flex flex-col gap-3 group hover:border-cyan-500/50 transition-all duration-300 hover:-translate-y-1 sm:col-span-2 lg:col-span-1">
+                    <div class="relative w-full h-56 rounded-xl overflow-hidden bg-slate-900 border border-slate-800 flex items-center justify-center">
+                        <img id="frameImg3" src="https://images.unsplash.com/photo-1513151233558-d860c5398176?auto=format&fit=crop&w=600&q=80" alt="Celebration" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <div class="absolute top-3 right-3 px-2.5 py-1 rounded-full bg-slate-900/80 backdrop-blur-md text-[10px] font-bold text-cyan-300 border border-cyan-500/30">
+                            Bright Future 🚀
+                        </div>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-sm text-slate-200">Sky is the Limit</h4>
+                        <p class="text-xs text-slate-400 mt-0.5">Here's to conquering all your goals and turning your biggest dreams into reality!</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- WISH WALL & MESSAGES BOARD -->
+        <section class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            
+            <!-- Left Column: Add Wish Form -->
+            <div class="lg:col-span-5 glass-card rounded-3xl p-6 space-y-4 h-fit">
+                <div>
+                    <span class="text-xs uppercase tracking-widest text-pink-400 font-bold">Leave a Birthday Note</span>
+                    <h3 class="text-xl font-display font-bold text-slate-100 mt-1">Wish Swaraj Well! ✍️</h3>
+                    <p class="text-xs text-slate-400">Post a message on Swaraj's official birthday wall!</p>
+                </div>
+
+                <form id="wishForm" onsubmit="handleWishSubmit(event)" class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-300 mb-1">Your Name</label>
+                        <input type="text" id="wishSender" required placeholder="e.g. Cousin Rohit / Aunt Sunita" class="w-full px-4 py-2.5 rounded-xl bg-slate-900/80 border border-slate-700 text-slate-100 placeholder-slate-500 text-sm focus:outline-none focus:border-pink-500 transition">
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-300 mb-1">Badge / Tag</label>
+                        <select id="wishTag" class="w-full px-4 py-2.5 rounded-xl bg-slate-900/80 border border-slate-700 text-slate-100 text-sm focus:outline-none focus:border-pink-500 transition">
+                            <option value="❤️ Family Love">❤️ Family Love</option>
+                            <option value="🔥 Pure Legend">🔥 Pure Legend</option>
+                            <option value="🥳 Party Animal">🥳 Party Animal</option>
+                            <option value="🌟 Brightest Star">🌟 Brightest Star</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-300 mb-1">Your Birthday Wishes</label>
+                        <textarea id="wishMessage" required rows="3" placeholder="Write something sweet, funny, or inspirational..." class="w-full px-4 py-2.5 rounded-xl bg-slate-900/80 border border-slate-700 text-slate-100 placeholder-slate-500 text-sm focus:outline-none focus:border-pink-500 transition resize-none"></textarea>
+                    </div>
+
+                    <button type="submit" class="w-full py-3 rounded-xl bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white font-bold text-sm shadow-lg shadow-pink-500/20 flex items-center justify-center gap-2 transition hover:scale-[1.02] active:scale-95">
+                        <i data-lucide="send" class="w-4 h-4"></i>
+                        <span>Post Birthday Wish</span>
+                    </button>
+                </form>
+            </div>
+
+            <!-- Right Column: Wish Wall Display Cards -->
+            <div class="lg:col-span-7 space-y-4">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <span class="text-xs uppercase tracking-widest text-amber-400 font-bold">Live Messages</span>
+                        <h3 class="text-xl font-display font-bold text-slate-100">Swaraj's Wish Wall 💌</h3>
+                    </div>
+                    <span id="wishCountBadge" class="px-3 py-1 rounded-full bg-slate-800 text-xs font-bold text-pink-400 border border-slate-700">3 Messages</span>
+                </div>
+
+                <div id="wishWallContainer" class="space-y-4 max-h-[460px] overflow-y-auto pr-2">
+                    <!-- Wish Card 1 -->
+                    <div class="glass-card rounded-2xl p-5 space-y-2 border-l-4 border-l-pink-500 relative">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-2">
+                                <div class="w-8 h-8 rounded-full bg-pink-500/20 text-pink-400 font-bold text-xs flex items-center justify-center">
+                                    SB
+                                </div>
+                                <h4 class="font-bold text-sm text-slate-200">Sunil & Family</h4>
+                            </div>
+                            <span class="px-2.5 py-0.5 rounded-full bg-pink-500/10 text-pink-300 text-[10px] font-bold border border-pink-500/20">❤️ Family Love</span>
+                        </div>
+                        <p class="text-xs sm:text-sm text-slate-300 leading-relaxed pt-1">
+                            Happy Birthday dear Swaraj! May God bless you with sound health, immense success in your studies & career, and lifetime happiness! Stay blessed always! ✨
+                        </p>
+                    </div>
+
+                    <!-- Wish Card 2 -->
+                    <div class="glass-card rounded-2xl p-5 space-y-2 border-l-4 border-l-amber-500 relative">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-2">
+                                <div class="w-8 h-8 rounded-full bg-amber-500/20 text-amber-400 font-bold text-xs flex items-center justify-center">
+                                    CB
+                                </div>
+                                <h4 class="font-bold text-sm text-slate-200">Your Cousin Brother</h4>
+                            </div>
+                            <span class="px-2.5 py-0.5 rounded-full bg-amber-500/10 text-amber-300 text-[10px] font-bold border border-amber-500/20">🔥 Pure Legend</span>
+                        </div>
+                        <p class="text-xs sm:text-sm text-slate-300 leading-relaxed pt-1">
+                            Happy Birthday Swaraj! Created this special site just for you bro! Enjoy your day to the fullest, eat lots of cake, and let's party hard! 🥳🚀
+                        </p>
+                    </div>
+
+                    <!-- Wish Card 3 -->
+                    <div class="glass-card rounded-2xl p-5 space-y-2 border-l-4 border-l-cyan-500 relative">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-2">
+                                <div class="w-8 h-8 rounded-full bg-cyan-500/20 text-cyan-400 font-bold text-xs flex items-center justify-center">
+                                    FG
+                                </div>
+                                <h4 class="font-bold text-sm text-slate-200">Friends Gang</h4>
+                            </div>
+                            <span class="px-2.5 py-0.5 rounded-full bg-cyan-500/10 text-cyan-300 text-[10px] font-bold border border-cyan-500/20">🥳 Party Animal</span>
+                        </div>
+                        <p class="text-xs sm:text-sm text-slate-300 leading-relaxed pt-1">
+                            Happy Birthday Swaraj Badhade! Where's the birthday treat bro? Wishing you the best year ahead full of gaming wins and endless fun! 🎮🍕
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer class="glass-card p-6 rounded-2xl text-center space-y-3 mt-4">
+            <p class="text-sm font-semibold text-slate-300">
+                Crafted with ❤️ for <span class="text-gradient-gold font-bold">Swaraj Sunil Badhade</span> on his Special Birthday!
+            </p>
+            <div class="flex justify-center gap-4 text-xs text-slate-400">
+                <span>🎂 October 5</span>
+                <span>•</span>
+                <span>🎉 Party Edition</span>
+                <span>•</span>
+                <span>👑 King of the Day</span>
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- JAVASCRIPT & LOGIC -->
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // Dynamic Typing Text Effect
+        const typingPhrases = [
+            "May your year be filled with endless success & victory! 🏆",
+            "Wishing you health, prosperity, and huge smiles! 😄",
+            "Keep shining bright, Swaraj Badhade! ⭐",
+            "Time to celebrate and make unforgettable memories! 🎉"
+        ];
+        let phraseIdx = 0;
+        let charIdx = 0;
+        let isDeleting = false;
+        const typingElement = document.getElementById('typingText');
+
+        function typeLoop() {
+            const currentPhrase = typingPhrases[phraseIdx];
+            if (isDeleting) {
+                typingElement.textContent = currentPhrase.substring(0, charIdx - 1);
+                charIdx--;
+            } else {
+                typingElement.textContent = currentPhrase.substring(0, charIdx + 1);
+                charIdx++;
+            }
+
+            let delay = isDeleting ? 40 : 80;
+
+            if (!isDeleting && charIdx === currentPhrase.length) {
+                delay = 2000;
+                isDeleting = true;
+            } else if (isDeleting && charIdx === 0) {
+                isDeleting = false;
+                phraseIdx = (phraseIdx + 1) % typingPhrases.length;
+                delay = 500;
+            }
+
+            setTimeout(typeLoop, delay);
+        }
+        typeLoop();
+
+        // CANDLE BLOWING INTERACTION LOGIC
+        let candleStates = [true, true, true]; // All candles lit initially
+
+        function blowOutSingleCandle(index) {
+            if (!candleStates[index]) return;
+            candleStates[index] = false;
+            
+            const flame = document.getElementById(`flame-${index}`);
+            const smoke = document.getElementById(`smoke-${index}`);
+            
+            if (flame) flame.classList.add('out');
+            if (smoke) {
+                smoke.classList.add('active');
+                setTimeout(() => smoke.classList.remove('active'), 1500);
+            }
+
+            playPopSound();
+            checkAllCandlesBlown();
+        }
+
+        function blowOutAllCandles() {
+            for (let i = 0; i < 3; i++) {
+                blowOutSingleCandle(i);
+            }
+        }
+
+        function relightCandles() {
+            candleStates = [true, true, true];
+            for (let i = 0; i < 3; i++) {
+                const flame = document.getElementById(`flame-${i}`);
+                if (flame) flame.classList.remove('out');
+            }
+            document.getElementById('wishStatusBox').classList.add('hidden');
+        }
+
+        function checkAllCandlesBlown() {
+            if (candleStates.every(state => state === false)) {
+                triggerConfetti();
+                triggerFireworks();
+                playCheerSound();
+                document.getElementById('wishStatusBox').classList.remove('hidden');
+            }
+        }
+
+        // CONFETTI & FIREWORKS CANNON LOGIC
+        function triggerConfetti() {
+            if (typeof confetti === 'function') {
+                confetti({
+                    particleCount: 100,
+                    spread: 70,
+                    origin: { y: 0.6 }
+                });
+            }
+        }
+
+        function triggerFireworks() {
+            if (typeof confetti === 'function') {
+                const duration = 2.5 * 1000;
+                const animationEnd = Date.now() + duration;
+                const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
+
+                function randomInRange(min, max) {
+                    return Math.random() * (max - min) + min;
+                }
+
+                const interval = setInterval(function() {
+                    const timeLeft = animationEnd - Date.now();
+                    if (timeLeft <= 0) {
+                        return clearInterval(interval);
+                    }
+                    const particleCount = 50 * (timeLeft / duration);
+                    confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } }));
+                    confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } }));
+                }, 250);
+            }
+        }
+
+        // GIFT CARD FLIP LOGIC
+        function flipGiftCard(cardElement) {
+            const inner = cardElement.querySelector('.gift-card-inner');
+            if (inner) {
+                inner.classList.toggle('rotate-y-180');
+                triggerConfetti();
+                playPopSound();
+            }
+        }
+
+        // PHOTO UPLOAD HANDLER
+        function handlePhotoUpload(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('frameImg1').src = e.target.result;
+                    triggerConfetti();
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // WISH FORM SUBMISSION HANDLER
+        function handleWishSubmit(e) {
+            e.preventDefault();
+            const sender = document.getElementById('wishSender').value.trim();
+            const tag = document.getElementById('wishTag').value;
+            const message = document.getElementById('wishMessage').value.trim();
+
+            if (!sender || !message) return;
+
+            const container = document.getElementById('wishWallContainer');
+            
+            // Generate initials
+            const initials = sender.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2) || 'SB';
+
+            const newCard = document.createElement('div');
+            newCard.className = 'glass-card rounded-2xl p-5 space-y-2 border-l-4 border-l-pink-500 relative animate-bounce-soft';
+            newCard.innerHTML = `
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-2">
+                        <div class="w-8 h-8 rounded-full bg-pink-500/20 text-pink-400 font-bold text-xs flex items-center justify-center">
+                            ${initials}
+                        </div>
+                        <h4 class="font-bold text-sm text-slate-200">${escapeHtml(sender)}</h4>
+                    </div>
+                    <span class="px-2.5 py-0.5 rounded-full bg-pink-500/10 text-pink-300 text-[10px] font-bold border border-pink-500/20">${escapeHtml(tag)}</span>
+                </div>
+                <p class="text-xs sm:text-sm text-slate-300 leading-relaxed pt-1">
+                    ${escapeHtml(message)}
+                </p>
+            `;
+
+            container.prepend(newCard);
+            triggerConfetti();
+            playPopSound();
+
+            // Update badge count
+            const total = container.children.length;
+            document.getElementById('wishCountBadge').textContent = `${total} Messages`;
+
+            // Reset Form
+            document.getElementById('wishForm').reset();
+        }
+
+        function escapeHtml(str) {
+            return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+        }
+
+        // WEB AUDIO API SOUND SYNTHESIZER
+        let audioCtx = null;
+        let isPlayingAudio = false;
+        let audioTimer = null;
+
+        function getAudioContext() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+            return audioCtx;
+        }
+
+        // Play short sound FX
+        function playPopSound() {
+            try {
+                const ctx = getAudioContext();
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(400, ctx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(800, ctx.currentTime + 0.1);
+                gain.gain.setValueAtTime(0.3, ctx.currentTime);
+                gain.gain.linearRampToValueAtTime(0.01, ctx.currentTime + 0.1);
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                osc.start();
+                osc.stop(ctx.currentTime + 0.1);
+            } catch (e) {}
+        }
+
+        function playCheerSound() {
+            try {
+                const ctx = getAudioContext();
+                // Simple multi-tone chord blast
+                [523.25, 659.25, 783.99, 1046.50].forEach((freq, idx) => {
+                    const osc = ctx.createOscillator();
+                    const gain = ctx.createGain();
+                    osc.type = 'triangle';
+                    osc.frequency.value = freq;
+                    gain.gain.setValueAtTime(0.15, ctx.currentTime + idx * 0.05);
+                    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.8 + idx * 0.05);
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+                    osc.start(ctx.currentTime + idx * 0.05);
+                    osc.stop(ctx.currentTime + 0.8 + idx * 0.05);
+                });
+            } catch (e) {}
+        }
+
+        // Happy Birthday Melody Synthesizer Notes
+        const melody = [
+            { note: 'C4', duration: 0.35 },
+            { note: 'C4', duration: 0.2 },
+            { note: 'D4', duration: 0.5 },
+            { note: 'C4', duration: 0.5 },
+            { note: 'F4', duration: 0.5 },
+            { note: 'E4', duration: 0.9 },
+
+            { note: 'C4', duration: 0.35 },
+            { note: 'C4', duration: 0.2 },
+            { note: 'D4', duration: 0.5 },
+            { note: 'C4', duration: 0.5 },
+            { note: 'G4', duration: 0.5 },
+            { note: 'F4', duration: 0.9 },
+
+            { note: 'C4', duration: 0.35 },
+            { note: 'C4', duration: 0.2 },
+            { note: 'C5', duration: 0.5 },
+            { note: 'A4', duration: 0.5 },
+            { note: 'F4', duration: 0.5 },
+            { note: 'E4', duration: 0.5 },
+            { note: 'D4', duration: 0.9 },
+
+            { note: 'A#4', duration: 0.35 },
+            { note: 'A#4', duration: 0.2 },
+            { note: 'A4', duration: 0.5 },
+            { note: 'F4', duration: 0.5 },
+            { note: 'G4', duration: 0.5 },
+            { note: 'F4', duration: 1.0 }
+        ];
+
+        const noteFreqs = {
+            'C4': 261.63, 'D4': 293.66, 'E4': 329.63, 'F4': 349.23, 'G4': 392.00,
+            'A4': 440.00, 'A#4': 466.16, 'C5': 523.25
+        };
+
+        function toggleAudio() {
+            const btnText = document.getElementById('musicBtnText');
+            if (isPlayingAudio) {
+                isPlayingAudio = false;
+                if (audioTimer) clearTimeout(audioTimer);
+                if (btnText) btnText.textContent = "Play Tune 🎵";
+            } else {
+                isPlayingAudio = true;
+                if (btnText) btnText.textContent = "Pause Tune ⏸️";
+                playMelodySequence(0);
+            }
+        }
+
+        function playMelodySequence(index) {
+            if (!isPlayingAudio) return;
+
+            if (index >= melody.length) {
+                index = 0; // Loop melody
+            }
+
+            const item = melody[index];
+            const ctx = getAudioContext();
+            
+            if (noteFreqs[item.note]) {
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(noteFreqs[item.note], ctx.currentTime);
+                
+                gain.gain.setValueAtTime(0.2, ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + item.duration);
+                
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                
+                osc.start();
+                osc.stop(ctx.currentTime + item.duration);
+            }
+
+            audioTimer = setTimeout(() => {
+                playMelodySequence(index + 1);
+            }, item.duration * 1000 + 50);
+        }
+
+        // DYNAMIC PARTICLE BACKGROUND CANVAS
+        const canvas = document.getElementById('particleCanvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class Particle {
+            constructor() {
+                this.reset();
+            }
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = canvas.height + Math.random() * 20;
+                this.size = Math.random() * 4 + 1.5;
+                this.speedY = Math.random() * 1.5 + 0.5;
+                this.speedX = (Math.random() - 0.5) * 0.8;
+                this.opacity = Math.random() * 0.7 + 0.3;
+                this.color = ['#ec4899', '#a855f7', '#3b82f6', '#facc15', '#38bdf8'][Math.floor(Math.random() * 5)];
+            }
+            update() {
+                this.y -= this.speedY;
+                this.x += this.speedX;
+                if (this.y < -10) {
+                    this.reset();
+                }
+            }
+            draw() {
+                ctx.save();
+                ctx.globalAlpha = this.opacity;
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.restore();
+            }
+        }
+
+        for (let i = 0; i < 50; i++) {
+            particles.push(new Particle());
+        }
+
+        function animateCanvas() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            requestAnimationFrame(animateCanvas);
+        }
+
+        window.onload = function() {
+            animateCanvas();
+            // Initial celebratory confetti trigger on load
+            setTimeout(() => {
+                triggerConfetti();
+            }, 800);
+        };
+    </script>
+</body>
+</html>
